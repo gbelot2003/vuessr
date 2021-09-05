@@ -1,17 +1,15 @@
 <template>
   <v-app>
-    <v-navigation-drawer v-model="drawer" app>
+    <v-navigation-drawer temporary v-model="drawer" app>
       <v-list>
-        <v-list-item v-for="item in menuItems" :key="item.title">
-          <v-list-tile>
-            <v-list-tile-action>
-              <v-icon>{{ item.icon }}</v-icon>
-              <v-list-tile-content>
-                {{ item.title }}
-              </v-list-tile-content>
-            </v-list-tile-action>
-          </v-list-tile>
-        </v-list-item>
+        <v-list-item-group color="primary">
+          <v-list-item v-for="(item, i) in menuItems" :key="i" router :to="item.link">
+            <v-list-item-icon>
+              <v-icon v-text="item.icon"></v-icon>
+            </v-list-item-icon>
+            <v-list-item-content>{{ item.title }}</v-list-item-content>
+          </v-list-item>
+        </v-list-item-group>
       </v-list>
     </v-navigation-drawer>
 
@@ -32,10 +30,11 @@
 <script>
 export default {
   data: () => ({
-    drawer: false,
+    drawer: null,
     menuItems: [
-      { icon: "mdi-home", title: "Inicio" },
-      { icon: "mdi-account", title: "login" },
+      { icon: "mdi-home", title: "Inicio", link: "/" },
+      { icon: "mdi-lock", title: "login", link: "/login" },
+      { icon: "mdi-account-lock", title: "Register", link: "/register" },
     ],
   }),
 };
